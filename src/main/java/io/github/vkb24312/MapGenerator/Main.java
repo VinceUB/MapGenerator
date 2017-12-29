@@ -3,6 +3,7 @@ package io.github.vkb24312.MapGenerator;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 public class Main extends JPanel{
 
@@ -21,44 +22,50 @@ public class Main extends JPanel{
                 r.setSeed(Long.parseLong(args[1]));
             }
         } catch (ArrayIndexOutOfBoundsException ignore) {
-            System.out.print("To use a custom seed, type the seed as an argument");
+            System.out.println("To use a custom seed, type the seed as an argument");
         }
         //</editor-fold>
 
         //<editor-fold desc="Heightmap generator">
         int i = 0;
         while(i<5000) {
+            System.out.println("Starting a new map");
             for (int x = 0; x < 300; x++) {
                 coords[x] = new coord[300];
                 for (int y = 0; y < 300; y++) {
+                    int grad = (r.nextInt(11) - 5);
                     coords[x][y] = new coord();
                     if (x == 0) {
 
                         if (y == 0) {
                             coords[x][y].setHeight(r.nextInt(255));
+                            grad = 0;
                         } else {
-                            coords[x][y].setHeight(coords[x][y - 1].height + (r.nextInt(10) - 5));
+                            coords[x][y].setHeight(coords[x][y - 1].height + grad);
                         }
 
                     } else {
 
                         if (y == 0) {
-                            coords[x][y].setHeight(coords[x - 1][y].height + (r.nextInt(10) - 5));
+                            coords[x][y].setHeight(coords[x - 1][y].height + grad);
                         } else {
                             coords[x][y].setHeight(
-                                    (coords[x - 1][y].height + r.nextInt(10) - 5 +
-                                            coords[x][y - 1].height + r.nextInt(10) - 5)
-                                            / 2
+                                    ((coords[x - 1][y].height+
+                                    coords[x][y - 1].height)
+                                    / 2) + grad
                             );
                         }
+
                     }
+
+                    coords[x][y].grad = grad;
 
                     if (coords[x][y].height > 150) i++;
                 }
             }
         }
+        System.out.println("Successful map generation!");
         //</editor-fold>
-
 
         //<editor-fold desc="JFrame generator">
         JFrame frame = new JFrame("Map Generator");
@@ -69,6 +76,7 @@ public class Main extends JPanel{
         //</editor-fold>
 
         //<editor-fold desc="Map drawer">
+        System.out.println("Starting Map drawing");
         for (main.gx = 0; main.gx < 300; main.gx++) {
             for (main.gy = 0; main.gy < 300; main.gy++) {
 
@@ -80,6 +88,7 @@ public class Main extends JPanel{
                 Thread.sleep(1);
             }
         }
+        System.out.print("Finished Map drawing!");
         //</editor-fold>
     }
 
