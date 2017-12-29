@@ -13,6 +13,8 @@ public class coord {
 
     int biome;
 
+    int grad;
+
     Color color(){
         //50<x<200
         double height1 = height;
@@ -21,10 +23,21 @@ public class coord {
         } else if(height1>200){
             return Color.white;
         } else if (height1>150){
-            return new Color((int) Math.round(((height1-50)/150)*255), (int) Math.round(((height1-50)/150)*255), (int) Math.round(((height1-50)/150)*255));
+            return new Color((int) Math.round(((height1-51)/150)*255), (int) Math.round(((height1-50)/150)*255), (int) Math.round(((height1-50)/150)*255));
         } else {
-            return Color.green;
+            return new Color(0, 149, 38);
         }
+        /*
+        if(height1<50){
+            return Color.blue;
+        } else if(grad>2||grad<-2){
+            return new Color((int) Math.round(((height1-51)/255)*255), (int) Math.round(((height1-50)/255)*255), (int) Math.round(((height1-50)/255)*255));
+        } else if (height1>200){
+            return Color.white;
+        } else {
+            return new Color(0, 149, 38);
+        }
+        */
 
     }
 
