@@ -7,11 +7,13 @@ public class Map {
     //<editor-fold desc="Initializations">
     public Map(){
         initMethod = 0;
+        size = new Dimension(300, 300);
         initCoords();
         makeMap();
     }
 
     public Map(long seed){
+        size = new Dimension(300, 300);
         initMethod = 1;
         random.setSeed(seed);
         initCoords();
@@ -51,9 +53,9 @@ public class Map {
 
     private Random random = new Random();
 
-    Dimension size = new Dimension(300, 300);
+    private Dimension size = new Dimension(300, 300);
 
-    Coord[][] coords = new Coord[size.width][size.height];
+    private Coord[][] coords = new Coord[size.width][size.height];
 
     private int initMethod;
 
@@ -67,7 +69,7 @@ public class Map {
         }
     }
 
-    void makeMap(){
+    private void makeMap(){
         //<editor-fold desc="Heightmap generator">
         int i = 0;
         do {
@@ -79,7 +81,7 @@ public class Map {
 
                         if (y == 0) {
                             coords[x][y].setHeight(random.nextInt(255));
-                            grad = 0;
+                            grad=0;
                         } else {
                             coords[x][y].setHeight(coords[x][y - 1].height + grad);
                         }
@@ -171,8 +173,8 @@ public class Map {
 
         //<editor-fold desc="Natural Map generator">
         else if(mapType==2){
-            for (int x = 0; x < 300; x++) {
-                for (int y = 0; y < 300; y++) {
+            for (int x = 0; x < size.width; x++) {
+                for (int y = 0; y < size.height; y++) {
                     colors[x][y] = coords[x][y].color();
                 }
             }
@@ -181,6 +183,15 @@ public class Map {
 
         return colors;
     }
+
+    Dimension getSize(){
+        return size;
+    }
+
+    Coord[][] getCoords(){
+        return coords;
+    }
+
     public static final int HEIGHTMAP = 0;
 
     public static final int BIOMEMAP = 1;

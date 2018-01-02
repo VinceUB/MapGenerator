@@ -30,40 +30,42 @@ public class Main extends JPanel{
         Map map;
         try {
             if (!args[0].equals("\u0000")) {
-                map = new Map(Long.parseLong(args[0]));
+                map = new Map(main.gs, Long.parseLong(args[0]));
             } else {
-                map = new Map();
+                map = new Map(main.gs);
                 System.out.println("To use a custom seed, type your seed as the argument");
             }
         } catch (NumberFormatException ignore){
-            map = new Map();
+            map = new Map(main.gs);
             System.out.println("This program only supports numeric seeds");
             System.out.println("To use a custom seed, type your seed as the argument");
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ignore){
-            map = new Map();
             System.out.println("To use a custom seed, type your seed as the argument");
+            map = new Map(main.gs);
         }
         //</editor-fold>
 
         //<editor-fold desc="JFrame generator">
         JFrame frame = new JFrame("Map Generator");
-        frame.setSize(300, 550);
+        frame.setSize(main.gs.width, main.gs.height+250);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel headPanel = new JPanel(new CardLayout());
 
         main.setLayout(null);
 
         JLabel seedl = new JLabel("Type your seed (if any) below:");
-        seedl.setBounds(0, 300, 300, 50);
+        seedl.setBounds(0, main.gs.height, main.gs.width, 50);
 
         JTextArea seed = new JTextArea();
-        seed.setBounds(0, 350, 300, 50);
+        seed.setBounds(0, main.gs.height+50, main.gs.width, 50);
         seed.setLineWrap(true);
 
         JButton regen = new JButton("Regenerate");
-        regen.setBounds(100, 400, 100, 50);
+        regen.setBounds(main.gs.width/2-50, main.gs.height+100, 100, 50);
 
         JButton close = new JButton("Close frame");
-        close.setBounds(75, 450, 150, 50);
+        close.setBounds(main.gs.width/2-75, main.gs.height+150, 150, 50);
 
         main.add(seedl);
         main.add(seed);
@@ -115,6 +117,12 @@ public class Main extends JPanel{
                 frame.setVisible(false);
             }
         });
+
+        long mult = 25214903917L;
+
+        long ad = 11L;
+
+
     }
 
     @Override
@@ -136,6 +144,7 @@ public class Main extends JPanel{
                     rects[i][j] = new Rectangle();
                 }
             }
+            repaint();
         }
     }
 
