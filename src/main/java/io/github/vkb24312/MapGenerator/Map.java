@@ -99,6 +99,9 @@ public class Map {
                     }
 
                     if (coords[x][y].height > 150) i++;
+
+                    if(coords[x][y].height > 255) coords[x][y].height = 255;
+                    if(coords[x][y].height < 0) coords[x][y].height = 0;
                 }
             }
             if(i<5000&&(initMethod==1||initMethod==3||initMethod==5)) System.out.println("Unsuccessful map generation, but kept it due to custom seed");

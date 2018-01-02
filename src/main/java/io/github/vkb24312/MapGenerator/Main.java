@@ -2,6 +2,8 @@ package io.github.vkb24312.MapGenerator;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class Main extends JPanel{
@@ -13,6 +15,14 @@ public class Main extends JPanel{
     private Rectangle[][] rects = new Rectangle[300][300];
 
     public static void main(String[] args){
+        try {if(args[1].equals(null)) args[1] = "1";}
+        catch (ArrayIndexOutOfBoundsException ignore){
+            try {
+                args = new String[]{args[0], "1"};
+            } catch (ArrayIndexOutOfBoundsException ignore1){
+                args = new String[]{null, "1"};
+            }
+        }
         Main main = new Main();
 
         //<editor-fold desc="Map setup">
@@ -28,7 +38,7 @@ public class Main extends JPanel{
             map = new Map();
             System.out.println("This program only supports numeric seeds");
             System.out.println("To use a custom seed, type your seed as the argument");
-        } catch (ArrayIndexOutOfBoundsException ignore){
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ignore){
             map = new Map();
             System.out.println("To use a custom seed, type your seed as the argument");
         }
@@ -36,10 +46,31 @@ public class Main extends JPanel{
 
         //<editor-fold desc="JFrame generator">
         JFrame frame = new JFrame("Map Generator");
-        frame.add(main);
-        frame.setSize(300, 300);
+        frame.setSize(300, 550);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        main.setLayout(null);
+        frame.add(main);
+
+        JLabel seedl = new JLabel("Type your seed (if any) below:");
+        seedl.setBounds(0, 300, 300, 50);
+
+        JTextArea seed = new JTextArea();
+        seed.setBounds(0, 350, 300, 50);
+        seed.setLineWrap(true);
+
+        JButton regen = new JButton("Regenerate");
+        regen.setBounds(100, 400, 100, 50);
+
+        JButton close = new JButton("Close frame");
+        close.setBounds(75, 450, 150, 50);
+
+        main.add(seedl);
+        main.add(seed);
+        main.add(regen);
+        main.add(close);
+
         //</editor-fold>
 
         //<editor-fold desc="Map drawer">
@@ -60,20 +91,48 @@ public class Main extends JPanel{
         main.repaint();
         System.out.print("Finished Map drawing!");
         //</editor-fold>
+
+        final String[] arg = args;
+        regen.addActionListener(e -> {
+            System.out.print("\n\n\n\n\n");
+            System.out.println("Making new Map");
+            if(seed.getText().equals("\u0000")){
+                main(new String[]{null, Integer.toString(Integer.parseInt(arg[1])+1)});
+            } else {
+                main(new String[]{seed.getText(), Integer.toString(Integer.parseInt(arg[1])+1)});
+            }
+        });
+
+        close.addActionListener(e -> {
+            if(Integer.parseInt(arg[1])==1) {
+                System.exit(0);
+            } else {
+                frame.setVisible(false);
+            }
+        });
     }
 
     @Override
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-
-        for (int i = 0; i < 300; i++) {
-            for (int j = 0; j < 300; j++) {
-                g2d.setColor(gc[i][j]);
-                g2d.draw(rects[i][j]);
+        try {
+            for (int i = 0; i < 300; i++) {
+                for (int j = 0; j < 300; j++) {
+                    g2d.setColor(gc[i][j]);
+                    g2d.draw(rects[i][j]);
+                }
+            }
+        } catch(NullPointerException ignore){
+            for (int i = 0; i < 300; i++) {
+                rects[i] = new Rectangle[300];
+                for (int j = 0; j < 300; j++) {
+                    rects[i][j] = new Rectangle();
+                }
             }
         }
     }
+
 }
 
 
