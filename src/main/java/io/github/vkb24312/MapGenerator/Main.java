@@ -8,9 +8,11 @@ public class Main extends JPanel{
 
     private int gx = 0;
     private int gy = 0;
-    private Color gc = new Color(new Random().nextInt(0xFFFFFF));
+    private Color[][] gc = new Color[300][300];
 
-    public static void main(String[] args) throws InterruptedException{
+    private Rectangle[][] rects = new Rectangle[300][300];
+
+    public static void main(String[] args){
         Main main = new Main();
 
         //<editor-fold desc="Map setup">
@@ -41,17 +43,26 @@ public class Main extends JPanel{
         //</editor-fold>
 
         //<editor-fold desc="Map drawer">
-        int i=0;
         System.out.println("Starting Map drawing");
+        for (int x = 0; x < 300; x++) {
+            main.gc[x] = new Color[300];
+            main.rects[x] = new Rectangle[300];
+            for (int y = 0; y < 300; y++) {
+                main.gc[x][y] = Color.pink;
+                main.rects[x][y] = new Rectangle();
+
+                main.rects[x][y].setBounds(x, y, 1, 1);
+            }
+        }
+        main.repaint();
+
         for (main.gx = 0; main.gx < 300; main.gx++) {
             for (main.gy = 0; main.gy < 300; main.gy++) {
 
                 //main.gc = new Color(Math.abs(coords[main.gx][main.gy].height), Math.abs(coords[main.gx][main.gy].height), Math.abs(coords[main.gx][main.gy].height));
-                main.gc = map.coords[main.gx][main.gy].color();
-                if(!(map.coords[main.gx][main.gy].color()==Color.blue)) i++;
+                main.gc[main.gx][main.gy] = map.coords[main.gx][main.gy].color();
 
-                main.repaint();
-                Thread.sleep(1);
+                main.repaint(main.rects[main.gx][main.gy]);
             }
         }
         System.out.print("Finished Map drawing!");
@@ -60,9 +71,15 @@ public class Main extends JPanel{
 
     @Override
     public void paint(Graphics g){
+        super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(gc);
-        g2d.drawRect(gx, gy, 1, 1);
+
+        for (int i = 0; i < 300; i++) {
+            for (int j = 0; j < 300; j++) {
+                g2d.setColor(gc[i][j]);
+                g2d.draw(rects[i][j]);
+            }
+        }
     }
 }
 
