@@ -56,15 +56,8 @@ public class Main extends JPanel{
         }
         main.repaint();
 
-        for (main.gx = 0; main.gx < 300; main.gx++) {
-            for (main.gy = 0; main.gy < 300; main.gy++) {
-
-                //main.gc = new Color(Math.abs(coords[main.gx][main.gy].height), Math.abs(coords[main.gx][main.gy].height), Math.abs(coords[main.gx][main.gy].height));
-                main.gc[main.gx][main.gy] = map.coords[main.gx][main.gy].color();
-
-                main.repaint(main.rects[main.gx][main.gy]);
-            }
-        }
+        main.gc = map.drawMap(Map.NATUREMAP);
+        main.repaint();
         System.out.print("Finished Map drawing!");
         //</editor-fold>
     }

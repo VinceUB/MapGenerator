@@ -136,4 +136,51 @@ public class Map {
         }
         //</editor-fold>
     }
+
+    Color[][] drawMap(int mapType){
+        Color[][] colors = new Color[size.width][size.height];
+        for (int i = 0; i < colors.length; i++) {
+            colors[i] = new Color[size.height];
+            for (int j = 0; j < colors[i].length; j++) {
+                colors[i][j] = Color.pink;
+            }
+        }
+
+        //<editor-fold desc="Heightmap generator">
+        if(mapType == 0){
+            for (int x = 0; x < size.width; x++) {
+                for (int y = 0; y < size.height; y++) {
+                    colors[x][y] = new Color(coords[x][y].height, coords[x][y].height, coords[x][y].height);
+                }
+            }
+        }
+        //</editor-fold>
+
+        //<editor-fold desc="Biome Map generator">
+        else if(mapType==1){
+            for (int x = 0; x < size.width; x++) {
+                for (int y = 0; y < size.height; y++) {
+                    colors[x][y] = coords[x][y].biomeColor();
+                }
+            }
+        }
+        //</editor-fold>
+
+        //<editor-fold desc="Natural Map generator">
+        else if(mapType==2){
+            for (int x = 0; x < 300; x++) {
+                for (int y = 0; y < 300; y++) {
+                    colors[x][y] = coords[x][y].color();
+                }
+            }
+        }
+        //</editor-fold>
+
+        return colors;
+    }
+    public static final int HEIGHTMAP = 0;
+
+    public static final int BIOMEMAP = 1;
+
+    public static final int NATUREMAP = 2;
 }

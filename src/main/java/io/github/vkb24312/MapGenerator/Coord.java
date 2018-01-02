@@ -43,6 +43,16 @@ public class Coord {
 
     }
 
+    Color biomeColor(){
+        if(biome==0){
+            return new Color(0, 149, 38);
+        } else if(biome==1){
+            return Color.yellow;
+        } else {
+            return Color.pink;
+        }
+    }
+
     void setHeight(int height){
         this.height = height;
     }
