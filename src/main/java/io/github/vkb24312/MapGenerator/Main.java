@@ -26,6 +26,9 @@ public class Main extends JPanel{
             map = new Map();
             System.out.println("This program only supports numeric seeds");
             System.out.println("To use a custom seed, type your seed as the argument");
+        } catch (ArrayIndexOutOfBoundsException ignore){
+            map = new Map();
+            System.out.println("To use a custom seed, type your seed as the argument");
         }
         //</editor-fold>
 
