@@ -18,8 +18,8 @@ public class Main extends JPanel{
         //<editor-fold desc="Random r setup">
         Random r = new Random();
         try {
-            if (!args[1].equals("\u0000")) {
-                r.setSeed(Long.parseLong(args[1]));
+            if (!args[0].equals("\u0000")) {
+                r.setSeed(Long.parseLong(args[0]));
             }
         } catch (ArrayIndexOutOfBoundsException ignore) {
             System.out.println("To use a custom seed, type the seed as an argument");
@@ -28,7 +28,7 @@ public class Main extends JPanel{
 
         //<editor-fold desc="Heightmap generator">
         int i = 0;
-        while(i<5000) {
+        do {
             System.out.println("Starting a new map");
             for (int x = 0; x < 300; x++) {
                 coords[x] = new coord[300];
@@ -50,9 +50,9 @@ public class Main extends JPanel{
                             coords[x][y].setHeight(coords[x - 1][y].height + grad);
                         } else {
                             coords[x][y].setHeight(
-                                    ((coords[x - 1][y].height+
-                                    coords[x][y - 1].height)
-                                    / 2) + grad
+                                    ((coords[x - 1][y].height +
+                                            coords[x][y - 1].height)
+                                            / 2) + grad
                             );
                         }
 
@@ -63,8 +63,9 @@ public class Main extends JPanel{
                     if (coords[x][y].height > 150) i++;
                 }
             }
-        }
-        System.out.println("Successful map generation!");
+            if(i<5000&&!args[0].equals("\u0000")) System.out.println("Unsuccessful map generation, but kept it due to custom seed");
+        } while (i < 5000&&args[0].equals("\u0000"));
+        if(i>=5000) System.out.println("Successful map generation!");
         //</editor-fold>
 
         //<editor-fold desc="JFrame generator">
