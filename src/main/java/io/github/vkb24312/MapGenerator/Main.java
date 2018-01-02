@@ -7,15 +7,16 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class Main extends JPanel{
+    private Dimension gs = new Dimension(300, 300);
 
     private int gx = 0;
     private int gy = 0;
-    private Color[][] gc = new Color[300][300];
+    private Color[][] gc = new Color[gs.width][gs.height];
 
-    private Rectangle[][] rects = new Rectangle[300][300];
+    private Rectangle[][] rects = new Rectangle[gs.width][gs.height];
 
     public static void main(String[] args){
-        try {if(args[1].equals(null)) args[1] = "1";}
+        try {if(args[1].equals("Hi from Vince")) args[1] = "1";}
         catch (ArrayIndexOutOfBoundsException ignore){
             try {
                 args = new String[]{args[0], "1"};
@@ -47,7 +48,6 @@ public class Main extends JPanel{
         //<editor-fold desc="JFrame generator">
         JFrame frame = new JFrame("Map Generator");
         frame.setSize(300, 550);
-        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         main.setLayout(null);
@@ -71,14 +71,16 @@ public class Main extends JPanel{
         main.add(close);
         frame.add(main);
 
+        frame.setVisible(true);
+
         //</editor-fold>
 
         //<editor-fold desc="Map drawer">
         System.out.println("Starting Map drawing");
-        for (int x = 0; x < 300; x++) {
-            main.gc[x] = new Color[300];
-            main.rects[x] = new Rectangle[300];
-            for (int y = 0; y < 300; y++) {
+        for (int x = 0; x < main.gs.width; x++) {
+            main.gc[x] = new Color[main.gs.height];
+            main.rects[x] = new Rectangle[main.gs.height];
+            for (int y = 0; y < main.gs.height; y++) {
                 main.gc[x][y] = Color.pink;
                 main.rects[x][y] = new Rectangle();
 
@@ -121,16 +123,16 @@ public class Main extends JPanel{
 
         Graphics2D g2d = (Graphics2D) g;
         try {
-            for (int i = 0; i < 300; i++) {
-                for (int j = 0; j < 300; j++) {
+            for (int i = 0; i < gs.width; i++) {
+                for (int j = 0; j < gs.height; j++) {
                     g2d.setColor(gc[i][j]);
                     g2d.draw(rects[i][j]);
                 }
             }
         } catch(NullPointerException ignore){
-            for (int i = 0; i < 300; i++) {
-                rects[i] = new Rectangle[300];
-                for (int j = 0; j < 300; j++) {
+            for (int i = 0; i < gs.width; i++) {
+                rects[i] = new Rectangle[gs.height];
+                for (int j = 0; j < gs.height; j++) {
                     rects[i][j] = new Rectangle();
                 }
             }
