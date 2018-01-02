@@ -2,18 +2,20 @@ package io.github.vkb24312.MapGenerator;
 
 import java.awt.*;
 
-public class coord {
-    public coord(){
+public class Coord {
+    public Coord(){
         this.height = 0;
         this.biome = 0;
-
     }
 
     int height;
 
     int biome;
 
-    int grad;
+    int gradl;
+    int gradr;
+    int gradu;
+    int gradd;
 
     Color color(){
         //50<x<200
@@ -48,4 +50,6 @@ public class coord {
     public static final int BIOME_PLAINS = 0;
 
     public static final int BIOME_DESSERt = 1;
+
+
 }
