@@ -121,8 +121,17 @@ public class Map {
                     coords[x][y].gradu = coords[x][y].height-coords[x][y-1].height;
                 }
 
-                coords[x][y].gradd = coords[x][y].height-coords[x][y+1].height;
-                coords[x][y].gradr = coords[x][y].height-coords[x+1][y].height;
+                if(x==size.width-1){
+                    coords[x][y].gradr = 0;
+                } else {
+                    coords[x][y].gradr = coords[x][y].height-coords[x+1][y].height;
+                }
+
+                if(y==size.height-1){
+                    coords[x][y].gradr = 0;
+                } else {
+                    coords[x][y].gradd = coords[x][y].height-coords[x][y+1].height;
+                }
             }
         }
         //</editor-fold>
