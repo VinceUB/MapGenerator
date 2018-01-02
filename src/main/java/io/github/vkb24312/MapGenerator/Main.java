@@ -51,7 +51,6 @@ public class Main extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         main.setLayout(null);
-        frame.add(main);
 
         JLabel seedl = new JLabel("Type your seed (if any) below:");
         seedl.setBounds(0, 300, 300, 50);
@@ -70,6 +69,7 @@ public class Main extends JPanel{
         main.add(seed);
         main.add(regen);
         main.add(close);
+        frame.add(main);
 
         //</editor-fold>
 
@@ -89,7 +89,7 @@ public class Main extends JPanel{
 
         main.gc = map.drawMap(Map.NATUREMAP);
         main.repaint();
-        System.out.print("Finished Map drawing!");
+        System.out.println("Finished Map drawing!");
         //</editor-fold>
 
         final String[] arg = args;
@@ -105,6 +105,9 @@ public class Main extends JPanel{
 
         close.addActionListener(e -> {
             if(Integer.parseInt(arg[1])==1) {
+                System.out.print("\n\n\n\n\n");
+                System.out.println("Closing program due to user request");
+                System.out.println("Thank you for using my map generator!");
                 System.exit(0);
             } else {
                 frame.setVisible(false);
@@ -115,6 +118,7 @@ public class Main extends JPanel{
     @Override
     public void paint(Graphics g){
         super.paint(g);
+
         Graphics2D g2d = (Graphics2D) g;
         try {
             for (int i = 0; i < 300; i++) {
