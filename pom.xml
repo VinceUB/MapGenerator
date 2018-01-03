@@ -7,6 +7,12 @@
     <groupId>io.github.vkb24312.MapGenerator</groupId>
     <artifactId>Map Generator</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <scm>
+        <connection>scm:git:github.com/vkb24312/MapGenerator.git</connection>
+        <developerConnection>scm:git:github.com/vkb24312/MapGenerator.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>github.com/vkb24312/MapGenerator.git</url>
+    </scm>
 
     <build>
         <plugins>
@@ -26,7 +32,7 @@
                             <generatePom>false</generatePom>
                             <pomFile>pom.xml</pomFile>
                             <packaging>jar</packaging>
-                            <!--><version>${project.version}-r${buildNumber}</version></!-->
+                            <version>${project.version}-r${buildNumber}</version>
                         </configuration>
                     </execution>
                     <execution>
@@ -95,7 +101,7 @@
                                     <manifestEntries>
                                         <Main-Class>io.github.vkb24312.confirmer.Main</Main-Class>
                                         <Implementation-Title>${project.artifactId}</Implementation-Title>
-                                        <!--><Implementation-Version>${project.version} r${buildNumber}</Implementation-Version></!-->
+                                        <Implementation-Version>${project.version} r${buildNumber}</Implementation-Version>
                                         <Repository-url>${project.scm.url}</Repository-url>
                                     </manifestEntries>
                                 </transformer>
@@ -139,4 +145,13 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.10</version>
+        </dependency>
+    </dependencies>
 </project>
