@@ -1,9 +1,15 @@
 package io.github.vkb24312.MapGenerator;
 
+import com.thoughtworks.xstream.XStream;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.Random;
 
 public class Main extends JPanel{
@@ -15,7 +21,7 @@ public class Main extends JPanel{
 
     private Rectangle[][] rects = new Rectangle[gs.width][gs.height];
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {if(args[1].equals("Hi from Vince")) args[1] = "1";}
         catch (ArrayIndexOutOfBoundsException ignore){
             try {
@@ -118,6 +124,28 @@ public class Main extends JPanel{
             }
         });
 
+        /*
+
+        System.out.println("Starting to save");
+
+        XStream xStream = new XStream();
+
+        File file = new File("file.xml");
+
+        try {
+            file.createNewFile();
+
+            FileOutputStream outputStream = new FileOutputStream(file);
+
+            outputStream.write(xStream.toXML(map).getBytes());
+
+            outputStream.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        System.out.println("Finished saving!");
+        */
     }
 
     @Override
