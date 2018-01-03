@@ -118,11 +118,6 @@ public class Main extends JPanel{
             }
         });
 
-        long mult = 25214903917L;
-
-        long ad = 11L;
-
-
     }
 
     @Override
