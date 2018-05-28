@@ -123,29 +123,6 @@ public class Main extends JPanel{
                 frame.setVisible(false);
             }
         });
-
-        /*
-
-        System.out.println("Starting to save");
-
-        XStream xStream = new XStream();
-
-        File file = new File("file.xml");
-
-        try {
-            file.createNewFile();
-
-            FileOutputStream outputStream = new FileOutputStream(file);
-
-            outputStream.write(xStream.toXML(map).getBytes());
-
-            outputStream.close();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
-        System.out.println("Finished saving!");
-        */
     }
 
     @Override
